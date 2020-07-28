@@ -1,23 +1,23 @@
 #+TITLE: *NOTAS ¿Cómo manipular y realizar un archivo en ROOTBEER?*
 #+AUTHOR: Ivan Dario Piernagorda Peña
 
-* *Entorno Grafico*
-El entorno gráfico se basa en la misma consola interactiva de ROOT, con las mismas librerias, opciones, etc.
+* *Entorno Gráfico*
+El entorno gráfico se basa en la misma consola interactiva de ROOT, con las mismas librerías, opciones, etc.
 
 * *Macros* [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][Pagina en internet]]
-  Un macro es un codigo que manipula un codigo ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*, existen dos maneras de correr un macro
+  Un macro es un código que manipula un código ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*, existen dos maneras de correr un macro
 ** Cargar macros
 *** *ROOT*
 
 1. *como en root*
-   + root ofrece diferentes maneras de ejecutar un marco, esta el *.x Nombre_archivo.C* el cual ejecuta la función principal *int main()* del codigo.
-   + Tambien esta el *.L Nombre_archivo.C* el cual guarda las funciones definidas en todo el codigo, y de esta manera dentro de la interfaz grafica podemos ejecutar alguna de estas funciones a conveniencia
+   + root ofrece diferentes maneras de ejecutar un marco, esta el *.x Nombre_archivo.C* el cual ejecuta la función principal *int main()* del código.
+   + También esta el *.L Nombre_archivo.C* el cual guarda las funciones definidas en todo el código, y de esta manera dentro de la interfaz gráfica podemos ejecutar alguna de estas funciones a conveniencia
 
 *** *ROOTBEER*
 Rootbeer maneja una función llamada *mkexe* la cual permite que se cree un ejecutable, los pasos para ejecutar la función son los siguientes
 1. Entrar a rootbeer desde la consola
 2. ejecutar *mkexe("Nombre_del_macro.C","");*
-3. salir del entorno grafico *.q*
+3. salir del entorno gráfico *.q*
 4. Ejecutar en el sh *rehash*, esto actualiza el sistema
 5. Ejecutar en el sh *Nombre_del_macro -N(# eventos) rbtestDST.root(o algún archivo de entrada) archivo_salida.root*.
 6. Se abre root y se ejecuta cualquier comando para ver los histogramas del archivo de salida
@@ -30,7 +30,7 @@ Muestra a detalle por cada banco su estado por evento del archivo primario, esto
 ** Archivo [[../include/bankvars.h][bankvars.h]]
 Este archivo muestra las variables que tiene cada banco, en general son cuatro
 + Tipo struct NOMBRE DEL BANCO :: Estructura que contiene todas las variables de este
-+ Tipo int (NOMBRE DEL BANCO)_NH :: Número de coliciones que contiene el banco
++ Tipo int (NOMBRE DEL BANCO)_NH :: Número de colisiones que contiene el banco
 + Tipo int (NOMBRE DEL BANCO)_S :: Número de etiqueta del sector
 + Tipo int (NOMBRE DEL BANCO)_NS :: Número de sectores
 ** Archivo [[../include/clasbanks.ddl][clasbanks.ddl]]
@@ -44,7 +44,7 @@ Este bucle nos permite recorrer todos los eventos
 
 * *DST*
 ** Headers
- Las librerias necesarias son 
+ Las librerías necesarias son 
  #include "RootBeerUtil.h"
  #include "TFile.h"  -> Libreria de root para archivos .root
  #include "TH1.h"  -> Libreria root para histogramas 1D

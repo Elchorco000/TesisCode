@@ -1,9 +1,7 @@
-
-// ******** required headers ********************************************
-//                                                                      *
+                                                                     
 #include "RootBeerUtil.h"	//gets everything for RootBeer scheme
 #include "particleDEF.h"
-#include "TFile.h"              // for root files
+#include "TFile.h"              
 #include "TObject.h"
 #include "TTree.h"
 #include "TDirectory.h"
@@ -12,16 +10,6 @@
 #include "RooStats/ToyMCSampler.h"
 #include "TMath.h"
 #include <vector>
-
-//                                                                      *
-// ******** end of required headers *************************************
-
-// ******** my headers here *********************************************
-//                                                                      *
-#include "TH1.h"                // eg. for 1D Histogram                 
-#include "TH2.h"                // eg. for 2D Histogram
-//                                                                      *
-// ******** end of my headers here **************************************
 
 
 
@@ -426,24 +414,7 @@ void rbtest(int nEvents, char *file, char *outFileName){   // main user function
       Sigma->evnt_beta = P4SigmaMinus->M(); 
       treepart->Fill();
      
-      /*
-      //std::cout << TAGR_NH << std::endl;
-      //eg of handling of single sector bank TAGR
-      for(int row=0;row<TAGR_NH;row++){ 		      	// loop over rows in TAGR bank
-	if(TAGR[row].STAT<15) continue;
-	tagr_stat->Fill(TAGR[row].STAT);
-	tagr_hist->Fill(TAGR[row].T_id,TAGR[row].TPHO);         // fill hist 
-      }
-      */
-
-      /*
-      //eg of handling of multiple sector bank SCR
-      for(int sector=0; sector<SCR_NS;sector++){              	// for all sectors
-	sect_no=SCR_S[sector];                                 	// get the number of the sector 
-	for(int row=0;row<SCR_NH[sector];row++){            	// for all hits in that sector
-	  scr_hist[sect_no]->Fill(SCR[sector][row].id);       	// fill  hist
-	} 
-	} */  
+      
       // End of user customized section ----------------------------
 
       eventTot++;

@@ -1,11 +1,11 @@
-#+TITLE: *NOTAS ¿Cómo manipular y realizar un archivo en ROOTBEER?*
+#+TITLE: *¿Cómo manipular y realizar un archivo en ROOTBEER?*
 #+AUTHOR: Ivan Dario Piernagorda Peña
 
 * *Entorno Gráfico*
 El entorno gráfico se basa en la misma consola interactiva de ROOT, con las mismas librerías, opciones, etc.
 
 * *Macros* [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][Pagina en internet]]
-  Un macro es un código que manipula un código ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*, existen dos maneras de correr un macro
+  Un macro es un código que manipula un código ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*. Existen dos maneras de correr un macro
 ** Cargar macros
 *** *ROOT*
 
@@ -27,14 +27,17 @@ Muestra de manera sencilla la lista de bancos *banks* en el archivo binario *.ro
 
 *** *bankdump*
 Muestra a detalle por cada banco su estado por evento del archivo primario, esto se explica en el documento [[file:/mnt/home/elchorco/Documentos/TESIS/Doc/Tutorias/info.org::*%20*INFORMACI%C3%93N*%20][¿Como se analizan los datos?]]
-** Archivo [[../include/bankvars.h][bankvars.h]]
-Este archivo muestra las variables que tiene cada banco, en general son cuatro
-+ Tipo struct NOMBRE DEL BANCO :: Estructura que contiene todas las variables de este
-+ Tipo int (NOMBRE DEL BANCO)_NH :: Número de colisiones que contiene el banco
-+ Tipo int (NOMBRE DEL BANCO)_S :: Número de etiqueta del sector
-+ Tipo int (NOMBRE DEL BANCO)_NS :: Número de sectores
-** Archivo [[../include/clasbanks.ddl][clasbanks.ddl]]
-   Este archivo contiene toda la información sobre las cantidades que detecta cada detector, ver [[/mnt/home/elchorco/Documentos/TESIS/Doc/Tutorias/info.org::*ROOTBEER][info.org]]
+** Carpeta *include*
+*** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/bankvars.h][bankvars.h]]
+ Este archivo muestra las variables que tiene cada banco, en general son cuatro
+ + Tipo struct NOMBRE DEL BANCO :: Estructura que contiene todas las variables dentro del documento *clasbanks.ddl*
+ + Tipo int (NOMBRE DEL BANCO)_NH :: Número de colisiones que contiene el banco
+ + Tipo int (NOMBRE DEL BANCO)_S :: Número de etiqueta del sector /No la tienen todos los bancos/
+ + Tipo int (NOMBRE DEL BANCO)_NS :: Número de sectores           /No la tienen todos los bancos/
+*** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/clasbanks.ddl][clasbanks.ddl]]
+    Este archivo contiene toda la información sobre las cantidades que detecta cada detector, ver [[/mnt/home/elchorco/Documentos/TESIS/Doc/Tutorias/info.org::*ROOTBEER][info.org]]
+*** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/particleDEF.h][particleDEF.h]]
+En este archivo se definen las masas de las partículas en GeV/c^2
 ** Archivo (Ejemplo rbtest.C)
 *** *cosnt char *mybanks[]={"BANKS"}* [[/path/to/rootbeer2.2/rootbeer2.2/IVAN_ROOTBEER/Example/rbtest.C::124][Linea 124]]
 Esta linea es importante, ya que en esta definimos cuales datos de los bancos que queremos manipular.
@@ -46,9 +49,9 @@ Este bucle nos permite recorrer todos los eventos
 ** Headers
  Las librerías necesarias son 
  #include "RootBeerUtil.h"
- #include "TFile.h"  -> Libreria de root para archivos .root
- #include "TH1.h"  -> Libreria root para histogramas 1D
- #include "TH2.h"  -> Libreria root para histogramas 2D
+ #include "TFile.h"  -> Librería de root para archivos .root
+ #include "TH1.h"  -> Librería root para histogramas 1D
+ #include "TH2.h"  -> Librería root para histogramas 2D
 ** Variables globales
 
  int nEventsTot=0   -> Numero de eventos

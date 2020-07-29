@@ -190,6 +190,7 @@ void rbtest(int nEvents, char *file, char *outFileName){   // main user function
   Double_t ZProton, ZKaon;
   Double_t T1P, T1K;
   Double_t T2P, T2K;
+  Double_t BestDTKaon;                    //Find the smallest value for abs(DT)
   TLorentzVector *P4Proton = new TLorentzVector();
   TLorentzVector *P4KaonPlus = new TLorentzVector();
 
@@ -375,7 +376,8 @@ void rbtest(int nEvents, char *file, char *outFileName){   // main user function
       T1K = TimeKaon - double(PathKaon)/double(BKaon*c);
 
       //DT=T1-T2 TAGR Bank
-      for(int row=0;row<TAGR_NH;row++){ 		       
+      BestDTKaon=1.0;                                            //This value begin with 1.0 ns because is the maximum
+      for(int row=0;row<TAGR_NH;row++){ 		         //value that abs(DTKaon->DTime) can take
 	if(TAGR[row].STAT!=15 && TAGR[row].STAT!=7) continue;
 	//Pion with TAGR
 	T2Pi=TAGR[row].TPHO-double(corr-ZPionMinus)/double(c);
@@ -386,8 +388,14 @@ void rbtest(int nEvents, char *file, char *outFileName){   // main user function
 	//Kaon with TAGR
 	T2K=TAGR[row].TPHO-double(corr-ZKaon)/double(c);
 	DTKaon->DTime = TMath::Abs(T2K-T1K);                             //Fill treepar
+
+	if(BestDTKaon > DTKaon->DTime){                                  //Find the smallest value of DTKaon->DTime
+	  BestDTKaon = DTKaon->DTime;                                    //The Best value would be DTKaon->DTime Approx 0
+	  PhotonE = TAGR[row].ERG;
+	}
       }
-	    
+
+      /*
       //Photon TGPB BANK
       for(int row=0; row<TGPB_NH; row++){
 	
@@ -395,7 +403,7 @@ void rbtest(int nEvents, char *file, char *outFileName){   // main user function
 	  PhotonE = TGPB[row].Energy;
 	}
       } // -------- FINAL TGPB ----------- //
-
+      */
       P4Photon->SetPxPyPzE(0.0, 0.0, PhotonE, PhotonE);
 
 

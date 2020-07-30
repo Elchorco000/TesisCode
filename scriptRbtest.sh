@@ -10,6 +10,6 @@ if [[ "$ans" =~ "n" ]]; then
 fi
 rehash
 cd /mnt/home/elchorco/Documentos/TESIS/Codigo/IVAN_ROOTBEER/Tesis/Analysis/pos2neg1_skim/
-rbtest -Lfile.dat test.root
+pos2neg1 -Lfile.dat test.root
 $ROOTSYS/bin/root -l
 cd $ROOTBEER

@@ -35,5 +35,5 @@ gSystem->Load("libExpTable");
 gSystem->SetIncludePath("-I./ -I./include");
 
  
-  mkexe("/mnt/home/elchorco/Documentos/TESIS/Codigo/IVAN_ROOTBEER/Tesis/macro/rbtest.C","");
+  mkexe("/mnt/home/elchorco/Documentos/TESIS/Codigo/IVAN_ROOTBEER/Tesis/macro/pos2neg1.C","");
  }

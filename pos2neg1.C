@@ -33,7 +33,7 @@ int  parseArgs(int,char **);		// parse args when run as exe
 
 // ********* my functions defined in this code ************************** 
 //                                                                      *
-void rbtest(int, char *,char *); // main func. (same name as this macro)
+void pos2neg1(int, char *,char *); // main func. (same name as this macro)
 //                                                                      *
 // ********* end of my functions defined in this code ******************* 
 
@@ -57,7 +57,7 @@ typedef struct{
 #ifdef ROOTEXE
 int main(int argc,char **argv){		
   if((parseArgs(argc,argv))!=0) return(-1);	//parse input args
-  rbtest(nEventsTot,InFileName,OutFileName);	//call user function
+  pos2neg1(nEventsTot,InFileName,OutFileName);	//call user function
   return(0);
 }
 #endif
@@ -69,7 +69,7 @@ int main(int argc,char **argv){
 // should have the same name as this file (minus the .C suffix)
 // customize the "non-required" sections
  
-void rbtest(int nEvents, char *file, char *outFileName){   // main user function
+void pos2neg1(int nEvents, char *file, char *outFileName){   // main user function
 
   // *****************variables which are required***********************
   //                                                                    *
@@ -281,7 +281,7 @@ void rbtest(int nEvents, char *file, char *outFileName){   // main user function
 	}
 	else if(q<0){
 	  neg->evnt_charge = q;
-	  neg->evnt_mass = std::sqrt(m);
+	  neg->evnt_mass = m;
 	  neg->evnt_momentum = p;
 	  neg->evnt_beta = b;
 	  neg->evnt_cosx = cx;
@@ -388,7 +388,7 @@ void rbtest(int nEvents, char *file, char *outFileName){   // main user function
 	//Kaon with TAGR
 	T2K=TAGR[row].TPHO-double(corr-ZKaon)/double(c);
 	DTKaon->DTime = TMath::Abs(T2K-T1K);                             //Fill treepar
-
+	
 	if(BestDTKaon > DTKaon->DTime){                                  //Find the smallest value of DTKaon->DTime
 	  BestDTKaon = DTKaon->DTime;                                    //The Best value would be DTKaon->DTime Approx 0
 	  PhotonE = TAGR[row].ERG;
@@ -477,7 +477,7 @@ int parseArgs(int argc,char **argv){
     printUsage();
     return(-1);
     break;
-  case(3):				// 3 args rbtest <infile> <outfile>
+  case(3):				// 3 args pos2neg1 <infile> <outfile>
     if((strstr(argv[1],"-N"))!=NULL){
       printUsage();
       return(-1);
@@ -487,7 +487,7 @@ int parseArgs(int argc,char **argv){
       strcpy(OutFileName,argv[2]);
     }
     break;
-  case(4):				// 4 args must be "rbtest -N# <infile> <outfile>" 
+  case(4):				// 4 args must be "pos2neg1 -N# <infile> <outfile>" 
     if(strncmp(argv[1],"-N",2)!=0){  	//print usage then exit */
       printUsage();
       return(-1);
@@ -511,8 +511,8 @@ int parseArgs(int argc,char **argv){
 // When running as executable, gets called if no args, or silly args
 void printUsage(){
   fprintf(stderr,"\nusage:\n\n");
-  fprintf(stderr,"rbtest -h   Print this message\n\n");
-  fprintf(stderr,"rbtest [-Nevents] <infile> <outfile.root> \n");
-  fprintf(stderr,"rbtest [-Nevents] <-Lfilelist> <outfile.root> \n");
+  fprintf(stderr,"pos2neg1 -h   Print this message\n\n");
+  fprintf(stderr,"pos2neg1 [-Nevents] <infile> <outfile.root> \n");
+  fprintf(stderr,"pos2neg1 [-Nevents] <-Lfilelist> <outfile.root> \n");
 }
 // ---------- end of required printUsage() function  -------------------------------------------

@@ -150,8 +150,8 @@ void pos2neg1(int nEvents, char *file, char *outFileName){   // main user functi
   Double_t cx,cy,cz;     //Direction cosines
   Double_t p;            //Momentum
   Double_t b;            //Beta v/c
-  const Double_t c = 30; // Speed of light value (cm/ns) 
-  const Double_t corr = -20.0; //
+  const Double_t c = 29.9792458; // Speed of light value (cm/ns) 
+  const Double_t corr = 20.0; //
   //  Number of particles positives and negatives //
 
   Int_t npos=0;          //#Positives
@@ -305,7 +305,6 @@ void pos2neg1(int nEvents, char *file, char *outFileName){   // main user functi
       //Pion -
 
       PmPion=EVNT[rowNeg].Pmom;
-      BPionMinus=EVNT[rowNeg].Beta;
       CxPion=EVNT[rowNeg].Cx;
       CyPion=EVNT[rowNeg].Cy;
       CzPion=EVNT[rowNeg].Cz;
@@ -313,7 +312,7 @@ void pos2neg1(int nEvents, char *file, char *outFileName){   // main user functi
       EtPion=std::sqrt(PmPion*PmPion+PI_CHARGED_MASS*PI_CHARGED_MASS);
 
       P4PionMinus->SetPxPyPzE(PmPion*CxPion,PmPion*CyPion,PmPion*CzPion,EtPion);    
-
+      BPionMinus=P4PionMinus->Beta();
            
       // Proton and Kaon
 
@@ -335,7 +334,6 @@ void pos2neg1(int nEvents, char *file, char *outFileName){   // main user functi
       //if(EVNT[rowProton].Mass<=0.8 || EVNT[rowProton].Mass>=1.1) continue;
       //if(EVNT[rowKaon].Mass<=0.3 || EVNT[rowKaon].Mass>=0.7) continue;
       PmProton=EVNT[rowProton].Pmom;
-      BProton=EVNT[rowProton].Beta;
       CxProton=EVNT[rowProton].Cx;
       CyProton=EVNT[rowProton].Cy;
       CzProton=EVNT[rowProton].Cz;
@@ -343,19 +341,18 @@ void pos2neg1(int nEvents, char *file, char *outFileName){   // main user functi
       EtProton=std::sqrt(PmProton*PmProton+PROTON_MASS*PROTON_MASS);
 
       P4Proton->SetPxPyPzE(PmProton*CxProton,PmProton*CyProton,PmProton*CzProton,EtProton);
-
+      BProton=P4Proton->Beta();
       // Here must stay Kaon, but we changed the Kaon Mass to Pion+ Mass!  
       
       PmKaonPlus=EVNT[rowKaon].Pmom;
-      BKaon = EVNT[rowKaon].Beta;
       CxKaonPlus=EVNT[rowKaon].Cx;
       CyKaonPlus=EVNT[rowKaon].Cy;
       CzKaonPlus=EVNT[rowKaon].Cz;
 
       EtKaonPlus=std::sqrt(PmKaonPlus*PmKaonPlus+PI_CHARGED_MASS*PI_CHARGED_MASS);
-
+      
       P4KaonPlus->SetPxPyPzE(PmKaonPlus*CxKaonPlus,PmKaonPlus*CyKaonPlus,PmKaonPlus*CzKaonPlus,EtKaonPlus);
-
+      BKaon = P4KaonPlus->Beta();
       //Best photon with SCPB, EVNT and TAGR
 
       //Pion with SCPB
@@ -380,17 +377,17 @@ void pos2neg1(int nEvents, char *file, char *outFileName){   // main user functi
       for(int row=0;row<TAGR_NH;row++){ 		         //value that abs(DTKaon->DTime) can take
 	if(TAGR[row].STAT!=15 && TAGR[row].STAT!=7) continue;
 	//Pion with TAGR
-	T2Pi=TAGR[row].TPHO-double(corr-ZPionMinus)/double(c);
-	DTPion->DTime = TMath::Abs(T2Pi-T1Pi);                           //Fill treepar
+	T2Pi=TAGR[row].TPHO-double(corr+ZPionMinus)/double(c);
+	DTPion->DTime = T2Pi-T1Pi;                           //Fill treepar
 	//Proton with TAGR
-	T2P=TAGR[row].TPHO-double(corr-ZProton)/double(c);
-	DTProton->DTime = TMath::Abs(T2P-T1P);                           //Fill treepar
+	T2P=TAGR[row].TPHO-double(corr+ZProton)/double(c);
+	DTProton->DTime = T2P-T1P;                           //Fill treepar
 	//Kaon with TAGR
-	T2K=TAGR[row].TPHO-double(corr-ZKaon)/double(c);
-	DTKaon->DTime = TMath::Abs(T2K-T1K);                             //Fill treepar
+	T2K=TAGR[row].TPHO-double(corr+ZKaon)/double(c);
+	DTKaon->DTime = T2K-T1K;                             //Fill treepar
 	
-	if(BestDTKaon > DTKaon->DTime){                                  //Find the smallest value of DTKaon->DTime
-	  BestDTKaon = DTKaon->DTime;                                    //The Best value would be DTKaon->DTime Approx 0
+	if(BestDTKaon > TMath::Abs(DTKaon->DTime)){                                  //Find the smallest value of DTKaon->DTime
+	  BestDTKaon = TMath::Abs(DTKaon->DTime);                                    //The Best value would be DTKaon->DTime Approx 0
 	  PhotonE = TAGR[row].ERG;
 	}
       }

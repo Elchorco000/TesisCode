@@ -1,7 +1,7 @@
 #+TITLE: *¿Cómo manipular y realizar un archivo en ROOTBEER?*
 #+AUTHOR: Ivan Dario Piernagorda Peña
 
-Se pretende realizar un macro en en root para el análisis de la reacción \gamma d \rightarrow K^{+} \sigma^{-} p del experimento g13 del JLab con energías entre 1.1 a 2.3 GeV de un haz de fotones polarizado linealmente, la obtención y manipulación de los datos se da con la herramienta [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][ROOTBEER]] la cual prepara los datos de los experimentos del CEBAF.
+Se pretende realizar un macro en en root para el análisis de la reacción \gamma d \rightarrow K^{+} \Sigma^{-} p del experimento g13 del JLab con energías entre 1.1 a 2.3 GeV de un haz de fotones polarizado linealmente, la obtención y manipulación de los datos se da con la herramienta [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][ROOTBEER]] la cual prepara los datos de los experimentos del CEBAF.
 
 El macro se diseña con base en el ejemplo *rbtest.C* de *ROOTBEER*.
 

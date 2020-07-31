@@ -1,10 +1,14 @@
 #+TITLE: *¿Cómo manipular y realizar un archivo en ROOTBEER?*
 #+AUTHOR: Ivan Dario Piernagorda Peña
 
+Se pretende realizar un macro en en root para el análisis de la reacción $\gamma d \rightarrow K^+ \sigma^- p$ del experimento g13 del JLab con energías entre 1.1 a 2.3 GeV de un haz de fotones polarizado linealmente, la obtención y manipulación de los datos se da con la herramienta [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][ROOTBEER]] la cual prepara los datos de los experimentos del CEBAF.
+
+El macro se diseña con base en el ejemplo *rbtest.C* de *ROOTBEER*.
+
 * *Entorno Gráfico*
 El entorno gráfico se basa en la misma consola interactiva de ROOT, con las mismas librerías, opciones, etc.
 
-* *Macros* [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][Pagina en internet]]
+* *Macros*
   Un macro es un código que manipula un código ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*. Existen dos maneras de correr un macro
 ** Cargar macros
 *** *ROOT*
@@ -43,8 +47,7 @@ En este archivo se definen las masas de las partículas en GeV/c^2
 Esta linea es importante, ya que en esta definimos cuales datos de los bancos que queremos manipular.
 *** *while(event>=0)* [[/path/to/rootbeer2.2/rootbeer2.2/IVAN_ROOTBEER/Example/rbtest.C::163][Linea 163]]
 Este bucle nos permite recorrer todos los eventos
-** Estructura
-
+** Estructur
 * *DST*
 ** Headers
  Las librerías necesarias son 

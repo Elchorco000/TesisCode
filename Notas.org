@@ -1,36 +1,39 @@
 #+TITLE: *¿Cómo manipular y realizar un archivo en ROOTBEER?*
 #+AUTHOR: Ivan Dario Piernagorda Peña
 
+* *Introducción*
 Se pretende realizar un macro en en root para el análisis de la reacción \gamma d \rightarrow K^{+} \Sigma^{-} p del experimento g13 del JLab con energías entre 1.1 a 2.3 GeV de un haz de fotones polarizado linealmente, la obtención y manipulación de los datos se da con la herramienta [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][ROOTBEER]] la cual prepara los datos de los experimentos del CEBAF.
 
 El macro se diseña con base en el ejemplo *rbtest.C* de *ROOTBEER*.
 
-* *Entorno Gráfico*
-El entorno gráfico se basa en la misma consola interactiva de ROOT, con las mismas librerías, opciones, etc.
+* Conceptos basicos
+** *Entorno Gráfico*
+ En la istalación de *ROOTBEER* se muesta que se ejecuta el archivo *RootBeerSetup.cxx* en el entorno grafico de *root*, el cual al ejecutarse, carga las librerias de *ROOTBEER*.
+** *Macros*
+   Un macro es un código que manipula un código ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*. 
+*** Cargar macros
+**** *ROOT*
+ 1. *como en root*
+    + root ofrece diferentes maneras de ejecutar un marco dentro del entorno gráfico, una de estas es con el comando *.x Nombre_archivo.C* el cual ejecuta la función principal del macro.
+    + También se puede ejecutar *.L Nombre_archivo.C* el cual guarda las funciones definidas en todo el código, y de esta manera dentro de la interfaz gráfica podemos ejecutar alguna de estas funciones a conveniencia.
 
-* *Macros*
-  Un macro es un código que manipula un código ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*. Existen dos maneras de correr un macro
-** Cargar macros
-*** *ROOT*
+Para mayor información ver los manueles en la pagina principal de [[https://d35c7d8c.web.cern.ch/][ROOT]].
+**** *ROOTBEER*
+ Rootbeer maneja una función llamada *mkexe* la cual permite que se cree un ejecutable, los pasos para ejecutar la función son los siguientes
+ 1. Entrar a rootbeer desde la consola
+ 2. ejecutar *mkexe("Nombre_del_macro.C","");*
+ 3. salir del entorno gráfico *.q*
+ 4. Ejecutar en el sh *rehash*, esto actualiza el sistema
+ 5. Ejecutar en el sh *Nombre_del_macro -N(# eventos) rbtestDST.root(o algún archivo de entrada) archivo_salida.root*.
+ 6. Se abre root y se ejecuta cualquier comando para ver los histogramas del archivo de salida
 
-1. *como en root*
-   + root ofrece diferentes maneras de ejecutar un marco, esta el *.x Nombre_archivo.C* el cual ejecuta la función principal *int main()* del código.
-   + También esta el *.L Nombre_archivo.C* el cual guarda las funciones definidas en todo el código, y de esta manera dentro de la interfaz gráfica podemos ejecutar alguna de estas funciones a conveniencia
-
-*** *ROOTBEER*
-Rootbeer maneja una función llamada *mkexe* la cual permite que se cree un ejecutable, los pasos para ejecutar la función son los siguientes
-1. Entrar a rootbeer desde la consola
-2. ejecutar *mkexe("Nombre_del_macro.C","");*
-3. salir del entorno gráfico *.q*
-4. Ejecutar en el sh *rehash*, esto actualiza el sistema
-5. Ejecutar en el sh *Nombre_del_macro -N(# eventos) rbtestDST.root(o algún archivo de entrada) archivo_salida.root*.
-6. Se abre root y se ejecuta cualquier comando para ver los histogramas del archivo de salida
+Para mas información ver [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/][Manual ROOTBEER]].
 ** Ejecutables *getbanks* y *bankdump*
 *** *getbanks*
 Muestra de manera sencilla la lista de bancos *banks* en el archivo binario *.root* o *.bos* este debe ser el archivo primario, o el cual es usado para aplicar el macro.
 
 *** *bankdump*
-Muestra a detalle por cada banco su estado por evento del archivo primario, esto se explica en el documento [[file:/mnt/home/elchorco/Documentos/TESIS/Doc/Tutorias/info.org::*%20*INFORMACI%C3%93N*%20][¿Como se analizan los datos?]]
+Muestra a detalle por cada banco su estado por evento del archivo primario.
 ** Carpeta *include*
 *** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/bankvars.h][bankvars.h]]
  Este archivo muestra las variables que tiene cada banco, en general son cuatro
@@ -39,27 +42,29 @@ Muestra a detalle por cada banco su estado por evento del archivo primario, esto
  + Tipo int (NOMBRE DEL BANCO)_S :: Número de etiqueta del sector /No la tienen todos los bancos/
  + Tipo int (NOMBRE DEL BANCO)_NS :: Número de sectores           /No la tienen todos los bancos/
 *** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/clasbanks.ddl][clasbanks.ddl]]
-    Este archivo contiene toda la información sobre las cantidades que detecta cada detector, ver [[/mnt/home/elchorco/Documentos/TESIS/Doc/Tutorias/info.org::*ROOTBEER][info.org]]
+    Este archivo contiene toda la información sobre las cantidades que detecta cada detector.
 *** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/particleDEF.h][particleDEF.h]]
-En este archivo se definen las masas de las partículas en GeV/c^2
-** Archivo (Ejemplo rbtest.C)
-*** *cosnt char *mybanks[]={"BANKS"}* [[/path/to/rootbeer2.2/rootbeer2.2/IVAN_ROOTBEER/Example/rbtest.C::124][Linea 124]]
-Esta linea es importante, ya que en esta definimos cuales datos de los bancos que queremos manipular.
+En este archivo se definen las masas de las partículas en GeV/c^{2}
+* Macro para el análisis de la reacción
+** Archivo [[./pos2neg1.C][pos2neg1.C]]
+*** *cosnt char *mybanks[]={"BANKS"}* [[./pos2neg1.C::124][Linea 124]]
+ Esta linea es importante, ya que en esta definimos cuales datos de los bancos que queremos manipular.
+**** Bancos ha utilizar
 *** *while(event>=0)* [[/path/to/rootbeer2.2/rootbeer2.2/IVAN_ROOTBEER/Example/rbtest.C::163][Linea 163]]
-Este bucle nos permite recorrer todos los eventos
-** Estructur
-* *DST*
-** Headers
- Las librerías necesarias son 
- #include "RootBeerUtil.h"
- #include "TFile.h"  -> Librería de root para archivos .root
- #include "TH1.h"  -> Librería root para histogramas 1D
- #include "TH2.h"  -> Librería root para histogramas 2D
-** Variables globales
+ Este bucle nos permite recorrer todos los eventos
+*** Estructur
+*** *DST*
+**** Headers
+   Las librerías necesarias son 
+   #include "RootBeerUtil.h"
+   #include "TFile.h"  -> Librería de root para archivos .root
+   #include "TH1.h"  -> Librería root para histogramas 1D
+   #include "TH2.h"  -> Librería root para histogramas 2D
+**** Variables globales
 
- int nEventsTot=0   -> Numero de eventos
- string InFileName   -> Nombre de archivo de entrada
- string OutFileName -> Nombre archivo de salida
+   int nEventsTot=0   -> Numero de eventos
+   string InFileName   -> Nombre de archivo de entrada
+   string OutFileName -> Nombre archivo de salida
 
- class TRootBeer *rootbeer -> Objeto 
+   class TRootBeer *rootbeer -> Objeto 
  

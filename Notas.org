@@ -47,11 +47,21 @@ Muestra a detalle por cada banco su estado por evento del archivo primario.
 En este archivo se definen las masas de las partículas en GeV/c^{2}
 * Macro para el análisis de la reacción
 ** Archivo [[./pos2neg1.C][pos2neg1.C]]
-*** *cosnt char *mybanks[]={"BANKS"}* [[./pos2neg1.C::124][Linea 124]]
- Esta linea es importante, ya que en esta definimos cuales datos de los bancos que queremos manipular.
-**** Bancos ha utilizar
-*** *while(event>=0)* [[/path/to/rootbeer2.2/rootbeer2.2/IVAN_ROOTBEER/Example/rbtest.C::163][Linea 163]]
- Este bucle nos permite recorrer todos los eventos
+*** [[./pos2neg1.C::2][Librerias]]
+*** [[./pos2neg1.C::40][Arbol]]
+*** [[./pos2neg1.C::100][Bancos]]
+*** [[./pos2neg1.C::150][Particulas]]
+*** [[./pos2neg1.C::140][Declaración de variables]]
+*** [[./pos2neg1.C::233][Eventos]]
+**** [[./pos2neg1.C::239][1er Corte]]
+**** [[./pos2neg1.C::245][Variables necesarias de EVNT]] 
+***** [[./pos2neg1.C::247][2do Corte]] 
+***** [[./pos2neg1.C::258][3er y 4to Corte]]
+***** [[./pos2neg1.C::262][Separar cargas]]
+**** [[./pos2neg1.C::294][5to Corte]] 
+**** [[./pos2neg1.C::296][Definición del cuadrimomentum para cada partícula]] 
+***** [[./pos2neg1.C::297][Pion -]] 
+***** [[./pos2neg1.C::309][Proton y Kaon+]]
 *** Estructur
 *** *DST*
 **** Headers
@@ -68,3 +78,4 @@ En este archivo se definen las masas de las partículas en GeV/c^{2}
 
    class TRootBeer *rootbeer -> Objeto 
  
+   

@@ -54,29 +54,6 @@ Este archivo ejecuta *Macro.C* de manera que ejecuta las librerías de ROOTBEER 
 La instalación de *ROOTBEER* se realiza mediante *tcsh*, por lo que se tradujo el script rootbeer2.2/scripts/rootbeer.cshrc a *zsh*, este archivo tiene que estar en la misma carpeta y se tienen que colocar las siguientes lineas en el archivo principal *~/.zshrc* 
 
 # Setup root and rootbeer environment
-<<<<<<< HEAD
-export LD_LIBRARY_PATH=/usr/lib/ 
-
-export ROOTSYS=/path/to/rootv5-install             #Ubicación de donde se tiene instalado root
-
-export PATH=${PATH}:${ROOTSYS}/bin
-
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ROOTSYS}/lib 
-
-export ROOTBEER=/path/to/rootbeer2.2/rootbeer2.2   #Ubicación de donde se instalo ROOTBEER
-
-=======
-export LD_LIBRARY_PATH=/usr/lib/
-
-export ROOTSYS=/path/to/rootv5-install             #Ubicación de donde se tiene instalado root
-
-export PATH=${PATH}:${ROOTSYS}/bin
-
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ROOTSYS}/lib
-
-export ROOTBEER=/path/to/rootbeer2.2/rootbeer2.2   #Ubicación de donde se instalo ROOTBEER
->>>>>>> V1
-source ${ROOTBEER}/scripts/rootbeer.zshrc
 
 esto se realizó por conveniencia, pero no es necesario para el análisis ni para el uso de *ROOTBEER*
 ** Archivo [[./pos2neg1.C][pos2neg1.C]]

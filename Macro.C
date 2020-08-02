@@ -35,5 +35,5 @@ void Macro(){
   gSystem->SetIncludePath("-I./ -I./include");
   
   
-  mkexe("/mnt/home/elchorco/Documentos/TESIS/Codigo/IVAN_ROOTBEER/Tesis/macro/pos2neg1.C","");  //Directory of *macro*
+  mkexe("/mnt/home/elchorco/Documentos/TESIS/Codigo/IVAN_ROOTBEER/Tesis/macro/pos2neg1.C","");  //Directory of *pos2neg1.C*
  }

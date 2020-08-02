@@ -46,6 +46,27 @@ Muestra a detalle por cada banco su estado por evento del archivo primario.
 *** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/particleDEF.h][particleDEF.h]]
 En este archivo se definen las masas de las partículas en GeV/c^{2}
 * Macro para el análisis de la reacción
+** Archivo [[./Macro.C][Macro.C]] 
+El archivo *Macro.C* contiene toda la estructura del archivo *RootBeerSetup.cxx* y ademas ejectuta el archivo *pos2neg1.C*, este se tiene que cambiar de acuerdo a la ubicación del archivo
+** Archivo [[./scriptRun.zsh][scriptRun.zsh]]
+Este archivo ejecuta *Macro.C* de manera que ejecuta las librerías de ROOTBEER y además crea el ejecutable *pos2neg1*, luego de esto, abrirá el directorio donde están los archivos *.root* (los que contienen los datos) ejecutara todos los archivos para este caso, y finalmente abrirá el entorno gráfico de root. 
+** Archivo [[./rootbeer.zshrc][rootbeer.zshrc]] /Opcional/
+La instalación de *ROOTBEER* se realiza mediante *tcsh*, por lo que se tradujo el script rootbeer2.2/scripts/rootbeer.cshrc a *zsh*, este archivo tiene que estar en la misma carpeta y se tienen que colocar las siguientes lineas en el archivo principal *~/.zshrc* 
+
+# Setup root and rootbeer environment
+export LD_LIBRARY_PATH=/usr/lib/ 
+
+export ROOTSYS=/path/to/rootv5-install             #Ubicación de donde se tiene instalado root
+
+export PATH=${PATH}:${ROOTSYS}/bin
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ROOTSYS}/lib 
+
+export ROOTBEER=/path/to/rootbeer2.2/rootbeer2.2   #Ubicación de donde se instalo ROOTBEER
+
+source ${ROOTBEER}/scripts/rootbeer.zshrc
+
+esto se realizó por conveniencia, pero no es necesario para el análisis ni para el uso de *ROOTBEER*
 ** Archivo [[./pos2neg1.C][pos2neg1.C]]
 *** [[./pos2neg1.C::2][Librerias]]
 *** [[./pos2neg1.C::40][Arbol]]
@@ -62,20 +83,4 @@ En este archivo se definen las masas de las partículas en GeV/c^{2}
 **** [[./pos2neg1.C::296][Definición del cuadrimomentum para cada partícula]] 
 ***** [[./pos2neg1.C::297][Pion -]] 
 ***** [[./pos2neg1.C::309][Proton y Kaon+]]
-*** Estructur
-*** *DST*
-**** Headers
-   Las librerías necesarias son 
-   #include "RootBeerUtil.h"
-   #include "TFile.h"  -> Librería de root para archivos .root
-   #include "TH1.h"  -> Librería root para histogramas 1D
-   #include "TH2.h"  -> Librería root para histogramas 2D
-**** Variables globales
 
-   int nEventsTot=0   -> Numero de eventos
-   string InFileName   -> Nombre de archivo de entrada
-   string OutFileName -> Nombre archivo de salida
-
-   class TRootBeer *rootbeer -> Objeto 
- 
-   

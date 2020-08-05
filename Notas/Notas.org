@@ -1,0 +1,86 @@
+#+TITLE: *¿Cómo manipular y realizar un archivo en ROOTBEER?*
+#+AUTHOR: Ivan Dario Piernagorda Peña
+
+* *Introducción*
+Se pretende realizar un macro en en root para el análisis de la reacción \gamma d \rightarrow K^{+} \Sigma^{-} p del experimento g13 del JLab con energías entre 1.1 a 2.3 GeV de un haz de fotones polarizado linealmente, la obtención y manipulación de los datos se da con la herramienta [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/node4.php][ROOTBEER]] la cual prepara los datos de los experimentos del CEBAF.
+
+El macro se diseña con base en el ejemplo *rbtest.C* de *ROOTBEER*.
+
+* Conceptos basicos
+** *Entorno Gráfico*
+ En la istalación de *ROOTBEER* se muesta que se ejecuta el archivo *RootBeerSetup.cxx* en el entorno grafico de *root*, el cual al ejecutarse, carga las librerias de *ROOTBEER*.
+** *Macros*
+   Un macro es un código que manipula un código ya realizado con anterioridad, en el caso de *ROOT* un archivo binario *.root*. 
+*** Cargar macros
+**** *ROOT*
+ 1. *como en root*
+    + root ofrece diferentes maneras de ejecutar un marco dentro del entorno gráfico, una de estas es con el comando *.x Nombre_archivo.C* el cual ejecuta la función principal del macro.
+    + También se puede ejecutar *.L Nombre_archivo.C* el cual guarda las funciones definidas en todo el código, y de esta manera dentro de la interfaz gráfica podemos ejecutar alguna de estas funciones a conveniencia.
+
+Para mayor información ver los manueles en la pagina principal de [[https://d35c7d8c.web.cern.ch/][ROOT]].
+**** *ROOTBEER*
+ Rootbeer maneja una función llamada *mkexe* la cual permite que se cree un ejecutable, los pasos para ejecutar la función son los siguientes
+ 1. Entrar a rootbeer desde la consola
+ 2. ejecutar *mkexe("Nombre_del_macro.C","");*
+ 3. salir del entorno gráfico *.q*
+ 4. Ejecutar en el sh *rehash*, esto actualiza el sistema
+ 5. Ejecutar en el sh *Nombre_del_macro -N(# eventos) rbtestDST.root(o algún archivo de entrada) archivo_salida.root*.
+ 6. Se abre root y se ejecuta cualquier comando para ver los histogramas del archivo de salida
+
+Para mas información ver [[http://nuclear.gla.ac.uk/~kl/rootbeer/manual/html/][Manual ROOTBEER]].
+** Ejecutables *getbanks* y *bankdump*
+*** *getbanks*
+Muestra de manera sencilla la lista de bancos *banks* en el archivo binario *.root* o *.bos* este debe ser el archivo primario, o el cual es usado para aplicar el macro.
+
+*** *bankdump*
+Muestra a detalle por cada banco su estado por evento del archivo primario.
+** Carpeta *include*
+*** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/bankvars.h][bankvars.h]]
+ Este archivo muestra las variables que tiene cada banco, en general son cuatro
+ + Tipo struct NOMBRE DEL BANCO :: Estructura que contiene todas las variables dentro del documento *clasbanks.ddl*
+ + Tipo int (NOMBRE DEL BANCO)_NH :: Número de colisiones que contiene el banco
+ + Tipo int (NOMBRE DEL BANCO)_S :: Número de etiqueta del sector /No la tienen todos los bancos/
+ + Tipo int (NOMBRE DEL BANCO)_NS :: Número de sectores           /No la tienen todos los bancos/
+*** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/clasbanks.ddl][clasbanks.ddl]]
+    Este archivo contiene toda la información sobre las cantidades que detecta cada detector.
+*** Archivo [[/path/to/rootbeer2.2/rootbeer2.2/include/particleDEF.h][particleDEF.h]]
+En este archivo se definen las masas de las partículas en GeV/c^{2}
+* Macro para el análisis de la reacción
+** Archivo [[./Macro.C][Macro.C]] 
+El archivo *Macro.C* contiene toda la estructura del archivo *RootBeerSetup.cxx* y ademas ejectuta el archivo *pos2neg1.C*, este se tiene que cambiar de acuerdo a la ubicación del archivo
+** Archivo [[./scriptRun.zsh][scriptRun.zsh]]
+Este archivo ejecuta *Macro.C* de manera que ejecuta las librerías de ROOTBEER y además crea el ejecutable *pos2neg1*, luego de esto, abrirá el directorio donde están los archivos *.root* (los que contienen los datos) ejecutara todos los archivos para este caso, y finalmente abrirá el entorno gráfico de root. 
+** Archivo [[./rootbeer.zshrc][rootbeer.zshrc]] /Opcional/
+La instalación de *ROOTBEER* se realiza mediante *tcsh*, por lo que se tradujo el script rootbeer2.2/scripts/rootbeer.cshrc a *zsh*, este archivo tiene que estar en la misma carpeta y se tienen que colocar las siguientes lineas en el archivo principal *~/.zshrc* 
+
+# Setup root and rootbeer environment
+export LD_LIBRARY_PATH=/usr/lib/
+
+export ROOTSYS=/path/to/rootv5-install             #Ubicación de donde se tiene instalado root
+
+export PATH=${PATH}:${ROOTSYS}/bin
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ROOTSYS}/lib
+
+export ROOTBEER=/path/to/rootbeer2.2/rootbeer2.2   #Ubicación de donde se instalo ROOTBEER
+
+source ${ROOTBEER}/scripts/rootbeer.zshrc
+
+esto se realizó por conveniencia, pero no es necesario para el análisis ni para el uso de *ROOTBEER*
+** Archivo [[./pos2neg1.C][pos2neg1.C]]
+*** [[./pos2neg1.C::2][Librerias]]
+*** [[./pos2neg1.C::40][Arbol]]
+*** [[./pos2neg1.C::100][Bancos]]
+*** [[./pos2neg1.C::150][Particulas]]
+*** [[./pos2neg1.C::140][Declaración de variables]]
+*** [[./pos2neg1.C::233][Eventos]]
+**** [[./pos2neg1.C::239][1er Corte]]
+**** [[./pos2neg1.C::245][Variables necesarias de EVNT]] 
+***** [[./pos2neg1.C::247][2do Corte]] 
+***** [[./pos2neg1.C::258][3er y 4to Corte]]
+***** [[./pos2neg1.C::262][Separar cargas]]
+**** [[./pos2neg1.C::294][5to Corte]] 
+**** [[./pos2neg1.C::296][Definición del cuadrimomentum para cada partícula]] 
+***** [[./pos2neg1.C::297][Pion -]] 
+***** [[./pos2neg1.C::309][Proton y Kaon+]]
+
